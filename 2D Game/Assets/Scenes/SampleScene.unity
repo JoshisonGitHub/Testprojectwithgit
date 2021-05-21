@@ -233,7 +233,7 @@ CharacterController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1192616928}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 237ca4d30fa01f04c84b9d1ccb936146, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -242,7 +242,7 @@ CharacterController:
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.0001
-  m_MinMoveDistance: 0.001
+  m_MinMoveDistance: 0.01
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1192616930
 MeshRenderer:
@@ -327,12 +327,6 @@ MonoBehaviour:
   sprintjump: 7
   walkspeed: 5
   runspeed: 7
-  frontcheck: {fileID: 2086010762}
-  wallslidingspeed: 4
-  whatisground:
-    serializedVersion: 2
-    m_Bits: 64
-  checkradius: 0.5
 --- !u!1 &1536221166
 GameObject:
   m_ObjectHideFlags: 0

@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
             jumpheight = originaljumpheight;
             speed = walkspeed;
         }
-        direction.x = Input.GetAxis("Horizontal") * speed;
+        direction.x = Input.GetAxisRaw("Horizontal") * speed;
         
         controller.Move(direction * Time.deltaTime);
 
