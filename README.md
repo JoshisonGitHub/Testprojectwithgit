@@ -1,4 +1,4 @@
-2DGame
+2DGame\n
 
 No established design documentation
 Git responsibilities: Oliver Wooding
