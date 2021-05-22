@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    //TODO: Implement coyote time on jumping
+    //TODO: Break Update() into dedicated functions to simplify legibility
+    //TODO: Implement momentum (probably create methods to verify adherence to laws of physics)
 
     public Rigidbody2D rb;
     public CapsuleCollider2D col;
@@ -31,7 +34,6 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround;
     private float moveInput;
 
-
     //wall sliding 
     private bool istouchingfront;
     public Transform frontcheck;
@@ -43,6 +45,10 @@ public class PlayerController : MonoBehaviour
     public float ywallforce;
     public float xwallforce;
     public float walljumptime;
+
+    //leniency windows
+    public float wallclingdecay;
+
     void Start()
     {
         originaljumpheight = jumpheight;
@@ -109,7 +115,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            wallsliding = false;
+            Invoke("Setwallslidetofalse", wallclingdecay);
         }
 
         if (wallsliding)
@@ -143,13 +149,19 @@ public class PlayerController : MonoBehaviour
     void Flip()
     {
         facingRight = !facingRight;
-        Vector3 Scaler = playertransform.localScale;
-        Scaler.x *= -1;
-        playertransform.localScale = Scaler;
+        Vector3 Scalar = playertransform.localScale;
+        Scalar.x *= -1;
+        playertransform.localScale = Scalar;
     }
 
+    //wrapped invocation methods
     void SetWalljumptofalse()
     {
         walljumping = false;
+    }
+
+    void Setwallslidetofalse()
+    {
+        wallsliding = false;
     }
 }
