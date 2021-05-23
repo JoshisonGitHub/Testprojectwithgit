@@ -7,6 +7,12 @@ public class HealthBarScript : MonoBehaviour
 {
 
     public Slider slider;
+    new private Renderer renderer;
+
+    void Start()
+    {
+        renderer = gameObject.GetComponent<Renderer>();
+    }
 
     public void SetHealth(float h)
     {
@@ -18,4 +24,5 @@ public class HealthBarScript : MonoBehaviour
         slider.maxValue = h;
         slider.value = h;
     }
+
 }

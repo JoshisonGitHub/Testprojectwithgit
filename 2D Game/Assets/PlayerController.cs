@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     //TODO: Implement coyote time on jumping
     //TODO: Break Update() into dedicated functions to simplify legibility
     //TODO: Implement momentum (probably create methods to verify adherence to laws of physics)
+    //TODO: Make healthbar facing independent from player facing
+    //TODO: Group parameters in editor using grouping
 
     public Rigidbody2D rb;
     public CapsuleCollider2D col;
@@ -17,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public HealthBarScript healthbar;
     public float maxhealth = 100;
     private float currenthealth;
+    public float bardecaytime;
 
     //jumping
     public float jumpheight;
@@ -59,6 +62,7 @@ public class PlayerController : MonoBehaviour
         orignalgravity = rb.gravityScale;
         currenthealth = maxhealth;
         healthbar.SetMaxHealth(maxhealth);
+        healthbar.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -169,8 +173,10 @@ public class PlayerController : MonoBehaviour
 
     void TakeDamage(float damage)
     {
+        healthbar.gameObject.SetActive(true);
         currenthealth -= damage;
         healthbar.SetHealth(currenthealth);
+        Invoke("Hidehealthbar", bardecaytime);
     }
 
     //wrapped invocation methods
@@ -182,5 +188,10 @@ public class PlayerController : MonoBehaviour
     void Setwallslidetofalse()
     {
         wallsliding = false;
+    }
+
+    void Hidehealthbar()
+    {
+        healthbar.gameObject.SetActive(false);
     }
 }
