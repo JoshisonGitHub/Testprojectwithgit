@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     //TODO: Implement coyote time on jumping
     //TODO: Break Update() into dedicated functions to simplify legibility
     //TODO: Implement momentum (probably create methods to verify adherence to laws of physics)
-    //TODO: Implement health with post-damage leniency
 
     public Rigidbody2D rb;
     public CapsuleCollider2D col;
