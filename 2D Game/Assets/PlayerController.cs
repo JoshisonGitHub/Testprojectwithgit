@@ -7,14 +7,19 @@ public class PlayerController : MonoBehaviour
     //TODO: Implement coyote time on jumping
     //TODO: Break Update() into dedicated functions to simplify legibility
     //TODO: Implement momentum (probably create methods to verify adherence to laws of physics)
+    //TODO: Implement health with post-damage leniency
 
     public Rigidbody2D rb;
     public CapsuleCollider2D col;
     private bool facingRight = true;
     public Transform playertransform;
 
+    //health
+    public HealthBarScript healthbar;
+    public float maxhealth = 100;
+    private float currenthealth;
+
     //jumping
-    
     public float jumpheight;
     public float sprintjump;
     private float originaljumpheight;
@@ -53,11 +58,20 @@ public class PlayerController : MonoBehaviour
     {
         originaljumpheight = jumpheight;
         orignalgravity = rb.gravityScale;
+        currenthealth = maxhealth;
+        healthbar.SetMaxHealth(maxhealth);
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        //temporary damage test
+        if(Input.GetKeyDown(KeyCode.O))
+        {
+            TakeDamage(10);
+        }
+
         //regular movement
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
         moveInput = Input.GetAxisRaw("Horizontal");
@@ -152,6 +166,12 @@ public class PlayerController : MonoBehaviour
         Vector3 Scalar = playertransform.localScale;
         Scalar.x *= -1;
         playertransform.localScale = Scalar;
+    }
+
+    void TakeDamage(float damage)
+    {
+        currenthealth -= damage;
+        healthbar.SetHealth(currenthealth);
     }
 
     //wrapped invocation methods
