@@ -7,14 +7,21 @@ public class PlayerController : MonoBehaviour
     //TODO: Implement coyote time on jumping
     //TODO: Break Update() into dedicated functions to simplify legibility
     //TODO: Implement momentum (probably create methods to verify adherence to laws of physics)
+    //TODO: Make healthbar facing independent from player facing
+    //TODO: Group parameters in editor using grouping
 
     public Rigidbody2D rb;
     public CapsuleCollider2D col;
     private bool facingRight = true;
     public Transform playertransform;
 
+    //health
+    public HealthBarScript healthbar;
+    public float maxhealth = 100;
+    private float currenthealth;
+    public float bardecaytime;
+
     //jumping
-    
     public float jumpheight;
     public float sprintjump;
     private float originaljumpheight;
@@ -53,11 +60,21 @@ public class PlayerController : MonoBehaviour
     {
         originaljumpheight = jumpheight;
         orignalgravity = rb.gravityScale;
+        currenthealth = maxhealth;
+        healthbar.SetMaxHealth(maxhealth);
+        healthbar.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        //temporary damage test
+        if(Input.GetKeyDown(KeyCode.O))
+        {
+            TakeDamage(10);
+        }
+
         //regular movement
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
         moveInput = Input.GetAxisRaw("Horizontal");
@@ -154,6 +171,14 @@ public class PlayerController : MonoBehaviour
         playertransform.localScale = Scalar;
     }
 
+    void TakeDamage(float damage)
+    {
+        healthbar.gameObject.SetActive(true);
+        currenthealth -= damage;
+        healthbar.SetHealth(currenthealth);
+        Invoke("Hidehealthbar", bardecaytime);
+    }
+
     //wrapped invocation methods
     void SetWalljumptofalse()
     {
@@ -163,5 +188,10 @@ public class PlayerController : MonoBehaviour
     void Setwallslidetofalse()
     {
         wallsliding = false;
+    }
+
+    void Hidehealthbar()
+    {
+        healthbar.gameObject.SetActive(false);
     }
 }
