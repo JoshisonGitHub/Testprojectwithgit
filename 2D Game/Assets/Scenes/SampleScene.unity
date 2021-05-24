@@ -524,7 +524,7 @@ MonoBehaviour:
   ywallforce: 8
   xwallforce: 16
   walljumptime: 0.05
-  wallclingdecay: 0.1
+  wallclingdecay: 0
 --- !u!50 &1192616934
 Rigidbody2D:
   serializedVersion: 4
