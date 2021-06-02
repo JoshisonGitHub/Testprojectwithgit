@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -59,6 +60,8 @@ public class PlayerController : MonoBehaviour
     //leniency windows
     public float wallclingdecay;
 
+
+    private string currentSceneName;
     void Start()
     {
         originaljumpheight = jumpheight;
@@ -66,6 +69,8 @@ public class PlayerController : MonoBehaviour
         currenthealth = maxhealth;
         healthbar.SetMaxHealth(maxhealth);
         healthbar.gameObject.SetActive(false);
+        currentSceneName = SceneManager.GetActiveScene().name;
+
     }
 
     // Update is called once per frame
@@ -198,5 +203,12 @@ public class PlayerController : MonoBehaviour
     void Hidehealthbar()
     {
         healthbar.gameObject.SetActive(false);
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.tag.Equals("kill")){
+            SceneManager.LoadScene(currentSceneName);
+        }
+
     }
 }
